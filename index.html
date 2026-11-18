@@ -111,7 +111,7 @@ body{background:var(--bg);color:var(--fg);font:15px/1.4 -apple-system,"PingFang 
 #stFile{font-size:11px;color:var(--fg3);max-width:34vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 #scoreScroll{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;position:relative;background:var(--bg3);scrollbar-width:thin}
-#tabView{padding:0 0 18px}
+#tabView{padding:0 0 18px;min-height:320px}
 #hint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--fg3);
   font-size:13px;text-align:center;line-height:2;padding:24px;pointer-events:none}
 #loadMask{position:absolute;inset:0;display:none;align-items:center;justify-content:center;
@@ -297,6 +297,25 @@ setTimeout(function () {
     if (g) g.innerHTML = '乐谱引擎还没加载完成。如果是网络慢，请再等一会儿；一直不动就换网络后刷新。';
   }
 }, 20000);
+</script>
+<script>
+/* 渲染兜底：alphaTab 在字体/容器未就绪时会抛 textBaseline 并留下空白谱面，这里轮询补渲染 */
+(function () {
+  var tries = 0;
+  function hasCanvas() { return document.querySelectorAll('#tabView canvas').length > 0; }
+  function heal() {
+    var gs = window.__gs;
+    if (!gs || !gs.api || !gs.score) return;
+    if (hasCanvas()) { tries = 0; return; }
+    if (tries >= 6) return;
+    tries++;
+    try { gs.api.render(); } catch (e) {}
+  }
+  setInterval(heal, 650);
+  if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+    document.fonts.ready.then(function () { setTimeout(heal, 150); });
+  }
+})();
 </script>
 </body>
 </html>
