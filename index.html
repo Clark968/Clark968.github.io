@@ -25,83 +25,109 @@ body.light{
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
 html,body{height:100%;margin:0;overflow:hidden}
-body{background:var(--bg);color:var(--fg);font:15px/1.45 -apple-system,"PingFang SC","Helvetica Neue",sans-serif;
+body{background:var(--bg);color:var(--fg);font:15px/1.4 -apple-system,"PingFang SC","Helvetica Neue",sans-serif;
   -webkit-user-select:none;user-select:none;overscroll-behavior:none}
-#app{display:flex;flex-direction:column;height:100%;padding:env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left)}
+#app{position:relative;display:flex;flex-direction:column;height:100%;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left)}
 
-#top{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg2);border-bottom:1px solid var(--line);flex:0 0 auto}
-#brand{display:flex;align-items:center;gap:8px;min-width:0}
-#mark{width:26px;height:26px;border-radius:6px;background:linear-gradient(150deg,var(--gold2),#8a6a1f);
-  display:flex;align-items:center;justify-content:center;color:#14161a;font-weight:700;font-size:15px}
-#brand b{font-size:15px;letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;max-width:96px}
-#brand span{display:block;font-size:10px;color:var(--fg3);letter-spacing:1px}
-#tabs{display:flex;gap:4px;margin-left:4px;flex:0 0 auto}
-#tabs button{padding:7px 11px;border-radius:7px;border:1px solid var(--line);background:var(--btn);color:var(--fg2);font-size:13px;white-space:nowrap;flex:0 0 auto}
+#top{display:flex;align-items:center;gap:6px;padding:5px 8px;background:var(--bg2);
+  border-bottom:1px solid var(--line);flex:0 0 auto;min-height:44px}
+#sideTog{padding:6px 9px;border-radius:7px;border:1px solid var(--line);background:var(--btn);
+  color:var(--fg2);font-size:15px;line-height:1;flex:0 0 auto}
+#brand{display:flex;align-items:center;gap:6px;min-width:0}
+#mark{width:22px;height:22px;border-radius:5px;background:linear-gradient(150deg,var(--gold2),#8a6a1f);
+  display:flex;align-items:center;justify-content:center;color:#14161a;font-weight:700;font-size:13px;flex:0 0 auto}
+#brand b{font-size:13.5px;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;max-width:110px}
+#brand span{display:none}
+#tabs{display:flex;gap:3px;flex:0 0 auto}
+#tabs button{padding:6px 10px;border-radius:7px;border:1px solid var(--line);background:var(--btn);
+  color:var(--fg2);font-size:12.5px;white-space:nowrap;flex:0 0 auto}
 #tabs button.on{background:var(--gold);border-color:var(--gold);color:#17191d;font-weight:600}
-.grow{flex:1}
-#top .tb{padding:8px 11px;border-radius:7px;border:1px solid var(--line);background:var(--btn);color:var(--fg2);font-size:13px;white-space:nowrap;flex:0 0 auto}
-#sideTog{display:none}
+.grow{flex:1;min-width:0}
+#top .tb{padding:6px 9px;border-radius:7px;border:1px solid var(--line);background:var(--btn);
+  color:var(--fg2);font-size:12.5px;white-space:nowrap;flex:0 0 auto}
 
-#body{display:flex;flex:1;min-height:0}
-#side{width:290px;flex:0 0 290px;background:var(--bg2);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
-.pane{display:none;flex-direction:column;min-height:0;padding:9px}
+#body{display:flex;flex:1;min-height:0;position:relative}
+#side{position:absolute;z-index:40;left:0;top:0;bottom:0;width:330px;max-width:86vw;
+  background:var(--bg2);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0;
+  transform:translateX(-102%);transition:transform .22s cubic-bezier(.3,.7,.2,1);
+  box-shadow:6px 0 28px rgba(0,0,0,.45);padding-bottom:env(safe-area-inset-bottom)}
+#side.open{transform:none}
+#sideMask{position:absolute;inset:0;background:rgba(0,0,0,.42);opacity:0;pointer-events:none;
+  transition:opacity .2s;z-index:39}
+#sideMask.on{opacity:1;pointer-events:auto}
+.pane{display:none;flex-direction:column;min-height:0;padding:8px;flex:1}
 .pane.on{display:flex}
-#libSearch,#findInput{width:100%;padding:10px 11px;font-size:16px;border-radius:8px;border:1px solid var(--line);
+#libSearch,#findInput{width:100%;padding:9px 10px;font-size:16px;border-radius:8px;border:1px solid var(--line);
   background:var(--bg3);color:var(--fg);outline:none}
-.row{display:flex;gap:6px;margin-top:8px}
+.row{display:flex;gap:6px;margin-top:7px}
 .row input{font-size:16px;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg3);color:var(--fg);width:100%;min-width:0}
-.row button,.row select{padding:9px 12px;border-radius:8px;border:1px solid var(--line);background:var(--btn);color:var(--fg);font-size:14px}
+.row button,.row select{padding:8px 11px;border-radius:8px;border:1px solid var(--line);background:var(--btn);color:var(--fg);font-size:14px}
 .row .go{background:var(--gold);border-color:var(--gold);color:#17191d;font-weight:600;flex:0 0 auto}
-#libList,#resList{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;margin-top:8px}
-.item{padding:9px 10px;border:1px solid var(--line);border-radius:8px;margin-bottom:7px;background:var(--bg3)}
+#libList,#resList{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;margin-top:7px}
+.item{padding:8px 9px;border:1px solid var(--line);border-radius:8px;margin-bottom:6px;background:var(--bg3)}
 .item.on{border-color:var(--gold);background:linear-gradient(180deg,rgba(200,165,91,.16),rgba(200,165,91,.04))}
-.item .t{font-size:14px;font-weight:600;word-break:break-word}
-.item .m{font-size:11.5px;color:var(--fg3);margin-top:3px;display:flex;gap:8px;flex-wrap:wrap}
-.item .acts{display:flex;gap:6px;margin-top:7px}
-.item .acts button{padding:7px 11px;border-radius:7px;border:1px solid var(--line);background:var(--btn);color:var(--fg);font-size:12.5px}
+.item .t{font-size:13.5px;font-weight:600;word-break:break-word}
+.item .m{font-size:11px;color:var(--fg3);margin-top:2px;display:flex;gap:7px;flex-wrap:wrap}
+.item .acts{display:flex;gap:5px;margin-top:6px}
+.item .acts button{padding:6px 10px;border-radius:7px;border:1px solid var(--line);background:var(--btn);color:var(--fg);font-size:12px}
 .item .acts .gold{background:var(--gold);border-color:var(--gold);color:#17191d;font-weight:600}
-.empty{color:var(--fg3);font-size:13px;padding:12px 4px;line-height:1.85}
+.empty{color:var(--fg3);font-size:12.5px;padding:10px 3px;line-height:1.8}
 .empty b{color:var(--fg2)}
 .empty a{color:var(--gold2)}
 
 #main{flex:1;display:flex;flex-direction:column;min-width:0;min-height:0}
-#ctrl{background:var(--bg2);border-bottom:1px solid var(--line);padding:6px 9px;flex:0 0 auto}
-.crow{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.crow+.crow{margin-top:5px}
-.pbtn{width:40px;height:36px;border-radius:9px;border:1px solid var(--line);background:var(--btn);color:var(--fg);font-size:16px;display:flex;align-items:center;justify-content:center}
+#ctrl{background:var(--bg2);border-bottom:1px solid var(--line);padding:4px 6px;flex:0 0 auto}
+.crow{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.crow+.crow{margin-top:3px}
+.crow-1{flex-wrap:nowrap}
+.pbtn{width:34px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--btn);
+  color:var(--fg);font-size:14px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
 .pbtn.play{background:var(--gold);border-color:var(--gold);color:#17191d;font-weight:700}
 .pbtn:disabled{opacity:.4}
-#progWrap{flex:1;min-width:90px;height:22px;padding:9px 0;position:relative;touch-action:none}
-#progBar{position:relative;height:4px;border-radius:3px;background:var(--btnA)}
+#progWrap{flex:1;min-width:70px;height:20px;padding:9px 0;position:relative;touch-action:none}
+#progBar{position:relative;height:3px;border-radius:3px;background:var(--btnA)}
 #progFill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:3px;background:var(--gold)}
-#progHead{position:absolute;top:-5px;width:3px;height:14px;background:var(--gold2);border-radius:2px;display:none}
-#progZone{position:absolute;top:0;bottom:0;background:rgba(69,179,163,.28);border-radius:3px;display:none}
-#timeBox{font-size:12px;color:var(--fg3);font-variant-numeric:tabular-nums;min-width:80px;text-align:right}
-#speedRange{width:150px;accent-color:var(--gold)}
-#spdLabel{font-size:13px;color:var(--gold);min-width:50px;font-variant-numeric:tabular-nums}
-.small{font-size:12px;color:var(--fg3)}
-#tempoBase{font-size:12px;color:var(--fg2)}
-#targetBpm{width:62px;font-size:16px;padding:5px 7px;border-radius:7px;border:1px solid var(--line);background:var(--bg3);color:var(--fg);text-align:center}
-.cbtn{padding:7px 11px;border-radius:8px;border:1px solid var(--line);background:var(--btn);color:var(--fg);font-size:12.5px}
+#progHead{position:absolute;top:-5px;width:2px;height:13px;background:var(--gold2);border-radius:2px;display:none}
+#progZone{position:absolute;top:0;bottom:0;background:rgba(69,179,163,.3);border-radius:3px;display:none}
+#timeBox{font-size:11px;color:var(--fg3);font-variant-numeric:tabular-nums;min-width:74px;text-align:right;flex:0 0 auto}
+.vsep{width:1px;height:20px;background:var(--line);flex:0 0 auto;margin:0 2px}
+#speedRange{width:112px;accent-color:var(--gold);flex:0 0 auto}
+#spdLabel{font-size:12px;color:var(--gold);min-width:42px;font-variant-numeric:tabular-nums;flex:0 0 auto}
+.small{font-size:11px;color:var(--fg3);white-space:nowrap}
+#tempoBase{font-size:11px;color:var(--fg2);white-space:nowrap;flex:0 0 auto}
+#targetBpm{width:52px;font-size:14px;padding:3px 5px;border-radius:6px;border:1px solid var(--line);
+  background:var(--bg3);color:var(--fg);text-align:center;flex:0 0 auto}
+.cbtn{padding:5px 8px;border-radius:7px;border:1px solid var(--line);background:var(--btn);color:var(--fg);
+  font-size:11.5px;white-space:nowrap;flex:0 0 auto}
 .cbtn.on{background:var(--gold);border-color:var(--gold);color:#17191d;font-weight:600}
 .cbtn.set{border-color:var(--gold);color:var(--gold)}
-#barFrom,#barTo{width:50px;font-size:16px;padding:5px 6px;border-radius:7px;border:1px solid var(--line);background:var(--bg3);color:var(--fg);text-align:center}
-#loopState{font-size:12px;color:var(--cy)}
-.selbox{font-size:13px;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--btn);color:var(--fg)}
+#barFrom,#barTo{width:40px;font-size:14px;padding:3px 4px;border-radius:6px;border:1px solid var(--line);
+  background:var(--bg3);color:var(--fg);text-align:center;flex:0 0 auto}
+#loopState{font-size:11px;color:var(--cy);white-space:nowrap}
+.selbox{font-size:11.5px;padding:5px 6px;border-radius:7px;border:1px solid var(--line);background:var(--btn);
+  color:var(--fg);flex:0 0 auto}
+#stPos{font-size:11px;color:var(--fg3);white-space:nowrap;flex:0 0 auto}
+#stFile{font-size:11px;color:var(--fg3);max-width:34vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 #scoreScroll{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;position:relative;background:var(--bg3);scrollbar-width:thin}
-#tabView{padding:6px 0 70px}
+#tabView{padding:0 0 18px}
 #hint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--fg3);
-  font-size:13.5px;text-align:center;line-height:2;padding:24px;pointer-events:none}
-#loadMask{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.35);color:var(--fg);font-size:14px}
+  font-size:13px;text-align:center;line-height:2;padding:24px;pointer-events:none}
+#loadMask{position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.35);color:var(--fg);font-size:14px}
 
 #maskSheet{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:50}
-#sheet{position:absolute;left:0;right:0;bottom:0;max-height:80%;overflow-y:auto;background:var(--bg2);
-  border-radius:16px 16px 0 0;padding:14px 16px calc(16px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
-#sheet h3{margin:0 0 10px;font-size:15px}
-#sheet .sr{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}
-#sheet select,#sheet input{font-size:15px;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg3);color:var(--fg);max-width:64%}
-#sheet .close{width:100%;margin-top:14px;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--btn);color:var(--fg);font-size:15px}
+#sheet{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(460px,92vw);
+  max-height:82%;overflow-y:auto;background:var(--bg2);border-radius:14px;border:1px solid var(--line);
+  padding:14px 16px calc(14px + env(safe-area-inset-bottom))}
+#sheet h3{margin:0 0 8px;font-size:14px}
+#sheet .sr{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+#sheet select,#sheet input{font-size:14px;padding:7px 9px;border-radius:8px;border:1px solid var(--line);
+  background:var(--bg3);color:var(--fg);max-width:62%}
+#sheet .close{width:100%;margin-top:12px;padding:11px;border-radius:9px;border:1px solid var(--line);
+  background:var(--btn);color:var(--fg);font-size:14px}
+
 #bootMask{position:fixed;inset:0;background:#15171b;display:flex;align-items:center;justify-content:center;z-index:99}
 body.light #bootMask{background:#f4f2ee}
 .bm-in{text-align:center;color:#c8a55b;padding:20px}
@@ -109,52 +135,37 @@ body.light #bootMask{background:#f4f2ee}
 .bm-t{font-size:17px;letter-spacing:.5px;color:#e6e9ef}
 body.light .bm-t{color:#23282f}
 .bm-s{font-size:12.5px;color:#8d96a4;margin-top:10px;line-height:1.9;max-width:80vw}
-#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);opacity:0;transition:.2s;
-  background:rgba(18,20,26,.96);color:#e7eaf0;border:1px solid var(--line);border-radius:9px;padding:10px 16px;
-  font-size:13.5px;max-width:82vw;text-align:center;z-index:60;pointer-events:none}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(18px);opacity:0;transition:.2s;
+  background:rgba(18,20,26,.96);color:#e7eaf0;border:1px solid var(--line);border-radius:9px;padding:9px 15px;
+  font-size:13px;max-width:82vw;text-align:center;z-index:60;pointer-events:none}
 #toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 
 @media (max-width:900px){
-  #side{position:absolute;z-index:40;left:0;top:0;bottom:0;width:86vw;max-width:360px;transform:translateX(-102%);
-        transition:transform .22s ease;box-shadow:0 0 30px rgba(0,0,0,.5)}
-  #side.open{transform:none}
-  #sideTog{display:block}
-  #speedRange{width:104px}
-  #timeBox{min-width:66px;font-size:11px}
+  #speedRange{width:96px}
 }
 @media (max-width:600px){
-  #top{padding:6px 8px;gap:5px}
-  #brand b{font-size:12.5px;max-width:70px}
-  #brand span{display:none}
-  #mark{width:22px;height:22px;font-size:13px;border-radius:5px}
-  #tabs button{padding:6px 8px;font-size:12px;border-radius:6px}
-  #top .tb{padding:6px 7px;font-size:11.5px;border-radius:6px}
-  .pbtn{width:34px;height:32px;font-size:14px}
-  .cbtn{padding:5px 8px;font-size:11.5px;border-radius:6px}
-  #speedRange{width:76px}
-  #speedRange,#targetBpm{flex:0 0 auto}
-  #barFrom,#barTo{width:40px;font-size:15px;padding:3px 4px}
+  #brand b{max-width:64px;font-size:12px}
+  #speedRange{width:74px}
   #stFile{display:none}
-  #tempoBase{font-size:11px}
-  .selbox{font-size:11.5px;padding:5px 6px}
-  #timeBox{font-size:10.5px;min-width:58px}
-  #hint{font-size:12.5px}
-  #spdLabel{min-width:44px;font-size:12px}
+  #ctrl{padding:4px}
+  .cbtn{padding:5px 6px;font-size:11px}
+  #barFrom,#barTo{width:36px}
 }
 </style>
 </head>
 <body>
 <div id="app">
   <div id="top">
-    <div id="brand"><div id="mark">♬</div><div><b>GuitarSolo</b><span>GUITAR TABS · WEB v1.0.0</span></div></div>
+    <button id="sideTog">☰</button>
+    <div id="brand"><div id="mark">♬</div><div><b>GuitarSolo</b></div></div>
     <div id="tabs"><button data-tab="lib" class="on">谱库</button><button data-tab="find">找谱</button></div>
-    <button id="sideTog" class="tb">☰</button>
     <div class="grow"></div>
     <button id="btnTheme" class="tb">跟随系统</button>
     <button id="btnSet" class="tb">⚙</button>
   </div>
 
   <div id="body">
+    <div id="sideMask"></div>
     <div id="side">
       <div class="pane on" id="paneLib">
         <div class="row" style="margin-top:0">
@@ -168,7 +179,7 @@ body.light .bm-t{color:#23282f}
         <input id="findInput" placeholder="曲名 或 乐队（英文原名更准）">
         <div class="row">
           <select id="findSrc" style="flex:1;min-width:0">
-            <option value="gtpso">吉他谱搜索 gtpso（带关键词直达）</option>
+            <option value="gtpso">吉他谱搜索 gtpso</option>
             <option value="gprotab">GProTab</option>
             <option value="911">911tabs</option>
             <option value="tan8">弹琴吧</option>
@@ -177,63 +188,58 @@ body.light .bm-t{color:#23282f}
           <button id="btnFind" class="go" style="flex:0 0 auto">去搜</button>
         </div>
         <div id="resList"><div class="empty">
-          <b>网页版怎么找谱：</b><br>
-          输入曲名 → 点「去搜」→ 在谱站里下载谱文件（.gp5/.gpx）→ 回到这里点「导入」，从「文件」App 选中刚下好的谱。<br><br>
-          <span style="color:var(--fg3)">浏览器不允许网页直接抓谱站的数据（跨域限制），所以这里做不到"点一下就在软件里下好"——PC 版可以，网页版不行。</span>
+          <b>网页版找谱流程：</b><br>
+          输入曲名 → 去搜 → 在谱站下载 .gp5/.gpx → 回来点「导入」选中刚下的谱。<br><br>
+          <span style="color:var(--fg3)">浏览器跨域限制，网页没法直接抓谱站文件。</span>
         </div></div>
       </div>
     </div>
 
     <div id="main">
       <div id="ctrl">
-        <div class="crow">
+        <div class="crow crow-1">
           <button id="btnPlay" class="pbtn play">▶</button>
           <button id="btnStop" class="pbtn">■</button>
           <div id="progWrap"><div id="progBar"><div id="progZone"></div><div id="progFill"></div><div id="progHead"></div></div></div>
           <div id="timeBox">0:00 / 0:00</div>
+          <div class="vsep"></div>
+          <span id="stPos">—</span>
+          <span id="stFile">未加载谱文件</span>
         </div>
         <div class="crow">
-          <span class="small">速度</span>
           <input type="range" id="speedRange" min="30" max="200" step="1" value="100">
           <span id="spdLabel">1.00×</span>
-          <span id="tempoBase">原谱 ♩=—</span>
+          <span id="tempoBase">原谱 — BPM</span>
           <span class="small">目标</span>
           <input id="targetBpm" inputmode="numeric" placeholder="—">
-          <span class="small">♩</span>
-        </div>
-        <div class="crow">
+          <div class="vsep"></div>
           <button id="btnA" class="cbtn">A</button>
           <button id="btnB" class="cbtn">B</button>
           <button id="btnClear" class="cbtn">清循环</button>
-          <span class="small">小节</span>
           <input id="barFrom" inputmode="numeric" value="1">
           <span class="small">→</span>
           <input id="barTo" inputmode="numeric" value="4">
-          <button id="btnLoopBar" class="cbtn">循环这段</button>
+          <button id="btnLoopBar" class="cbtn">循环</button>
           <span id="loopState"></span>
-        </div>
-        <div class="crow">
+          <div class="vsep"></div>
           <select id="selStave" class="selbox">
-            <option value="1">五线谱 + 六线谱</option>
-            <option value="2">仅五线谱</option>
-            <option value="3">仅六线谱（带时值）</option>
+            <option value="1">五线+六线</option>
+            <option value="2">仅五线</option>
+            <option value="3">仅六线</option>
           </select>
           <button id="btnZoomOut" class="cbtn">－</button>
-          <span class="small" id="zoomLabel">100%</span>
+          <span id="zoomLabel" class="small">100%</span>
           <button id="btnZoomIn" class="cbtn">＋</button>
           <button id="btnFit" class="cbtn">适宽</button>
           <select id="selLayout" class="selbox">
             <option value="page">分页</option>
-            <option value="h">横向连续</option>
+            <option value="h">横向</option>
           </select>
-          <span class="small" id="stPos">—</span>
-          <span class="grow"></span>
-          <span class="small" id="stFile">未加载谱文件</span>
         </div>
       </div>
       <div id="scoreScroll">
         <div id="tabView"></div>
-        <div id="hint">从左边「谱库」挑一首，或点「导入」加谱<br>播放前先点一下 ▶（iOS 需要你的手势才允许出声）</div>
+        <div id="hint">点左上 ☰ 选谱，或「导入」加谱<br>播放前先点一下 ▶（iOS 需要你的手势才允许出声）</div>
         <div id="loadMask">正在解析谱面…</div>
       </div>
     </div>
@@ -266,7 +272,7 @@ body.light .bm-t{color:#23282f}
       <button id="btnWipe" class="cbtn" style="border-color:#b1563f;color:#d98a72">清空</button>
     </div>
     <div class="sr" style="border-bottom:none;display:block">
-      <div class="small" id="sfNow" style="line-height:1.9"></div>
+      <div class="small" id="sfNow" style="line-height:1.8;white-space:normal"></div>
     </div>
     <button class="close" id="sheetClose">关闭</button>
   </div>
